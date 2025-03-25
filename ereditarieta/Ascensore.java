@@ -7,8 +7,8 @@ public class Ascensore {
     private ArrayList<Persona> personeDentro;
     private boolean porteAperte;
 
-    public Ascensore(int capienzaMassima){
-        this.pianoCorrente = 1;
+    public Ascensore(int pianoCorrente, int capienzaMassima) {
+        this.pianoCorrente = pianoCorrente;
         this.capienzaMassima = capienzaMassima;
         this.personeDentro = new ArrayList<>();
         this.porteAperte = false;
@@ -22,24 +22,58 @@ public class Ascensore {
         return porteAperte;
     }
 
-    public void apriPorte(){
+    public void apriPorte() {
         porteAperte = true;
-            System.out.println("Le porte dell'ascensore sono aperte.");
     }
 
-    public void chiudiPorte(){
+    public void chiudiPorte() {
         porteAperte = false;
-        System.out.println("Le porte dell'ascensore sono chiuse");
-
     }
 
-    public void aggiungiPersona(Persona p){
-        if(personeDentro.size() < capienzaMassima){
+    public void aggiungiPersona(Persona p) {
+        if (personeDentro.size() < capienzaMassima && porteAperte) {
             personeDentro.add(p);
-            System.out.println("Persona" + p.getid() + "è entrata nell'ascensore.");
+            System.out.println("👤 Persona " + p.getId() + " è salita nell'ascensore.");
         }
-        else{
-            System.out.println("L'ascensore è pieno, la persona" + p.getid() + "non può entrare nell'ascensore.");
+    }
+
+    public void rimuoviPersoneArrivate() {
+        ArrayList<Persona> personeDaRimuovere = new ArrayList<>();
+        for (Persona p : personeDentro) {
+            if (p.getPianoDestinazione() == pianoCorrente) {
+                personeDaRimuovere.add(p);
+                System.out.println("👤 Persona " + p.getId() + " è scesa al piano " + pianoCorrente);
+            }
         }
+        personeDentro.removeAll(personeDaRimuovere);
+    }
+
+    public void salita() {
+        if (pianoCorrente < 9) {
+            pianoCorrente++;
+        }
+    }
+
+    public void discesa() {
+        if (pianoCorrente > 0) {
+            pianoCorrente--;
+        }
+    }
+
+    public void decidiDirezione() {
+        if (pianoCorrente < 9) {
+            salita();
+        } else {
+            discesa();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Ascensore al piano " + pianoCorrente + " con " + personeDentro.size() + " persone a bordo.";
+    }
+
+    public int getPianoDestinazione() {
+        return 0;
     }
 }

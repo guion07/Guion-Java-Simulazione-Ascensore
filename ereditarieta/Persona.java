@@ -1,5 +1,4 @@
 package ereditarieta;
-
 public class Persona {
     private int id;
     private int pianoDestinazione;
@@ -18,22 +17,19 @@ public class Persona {
     }
 
     public void saliSuAscensore(Ascensore a) {
-        if (a.PorteAperte && a.getpianoCorrente() == this.getpianoDestinazione()) {
-            System.out.println("Persona " + id + " è salita sull'ascensore al piano " + a.getpianoCorrente());
+        if (a.getPianoCorrente() == a.getPianoDestinazione() && a.isPorteAperte()) {
             a.aggiungiPersona(this);
         }
     }
 
     public void scendiDaAscensore(Ascensore a) {
-        if (a.getpianoCorrente == pianoDestinazione) {
-            System.out.println("Persona " + id + " è scesa dall'ascensore al piano " + pianoDestinazione);
+        if (a.getPianoCorrente() == pianoDestinazione && a.isPorteAperte()) {
             a.rimuoviPersoneArrivate();
         }
     }
 
     @Override
-
-    public String toString(){
-        return "Persona{id=" + id + ", pianoDestinazione=" + pianoDestinazione + "}";
+    public String toString() {
+        return "Persona " + id + " -> Piano " + pianoDestinazione;
     }
 }
